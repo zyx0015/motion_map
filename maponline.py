@@ -19,17 +19,12 @@ def filter_sites_by_era(file, current_time):
 
 
 ############start##################
-
-
-col1, col2 = st.columns(2)
-
-with col1:
+with st.sidebar:
     st.title("有段石锛")
     file_name = st.file_uploader("import your csv file")
     current_time = st.slider("BP",0,8000,5000,100)
 
 if file_name is not None:
-    
     #写一个函数，读取csv并且根据时间筛选
     df = filter_sites_by_era(file_name,current_time)  # 读取上传的 CSV 文件
     # 创建地图对象
@@ -58,10 +53,7 @@ if file_name is not None:
             fill=True,
             fill_opacity=0.2
             ).add_to(m)
-    with col2:
-      st_folium(m,width=1000)
-     
-
-with col1:
+    st_folium(m,width=1000)
     st.dataframe(df) 
+     
     
