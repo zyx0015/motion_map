@@ -19,8 +19,12 @@ def filter_sites_by_era(file, current_time):
 
 
 ############start##################
-st.title("有段石锛")
-with st.sidebar:
+
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.title("有段石锛")
     file_name = st.file_uploader("import your csv file")
 
 
@@ -54,10 +58,10 @@ if file_name is not None:
             fill=True,
             fill_opacity=0.2
             ).add_to(m)
-    st_folium(m,width=1000)
-    st.dataframe(df) 
+    with col2:
+      st_folium(m,width=1000)
      
 
-with st.sidebar:
+with col1:
     st.dataframe(df) 
     
