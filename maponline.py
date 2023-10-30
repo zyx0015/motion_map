@@ -20,7 +20,9 @@ def filter_sites_by_era(file, current_time):
 
 ############start##################
 st.title("有段石锛")
-file_name = st.file_uploader("import your csv file")
+with st.sidebar:
+    file_name = st.file_uploader("import your csv file")
+
 
 if file_name is not None:
     current_time = st.slider("BP",0,8000,5000,100)
