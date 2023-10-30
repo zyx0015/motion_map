@@ -5,7 +5,7 @@ import streamlit as st
 import numpy as np
 import streamlit_folium
 from streamlit_folium import st_folium
-streamlit_folium
+
 ############functions#############
 def filter_sites_by_era(file, current_time):
     input_df=pd.read_csv(file,encoding="gbk")
@@ -56,4 +56,6 @@ if file_name is not None:
     st.dataframe(df) 
      
 
-
+with st.sidebar:
+    st.dataframe(df) 
+    )
