@@ -123,19 +123,17 @@ marker_colors = [
     'orange',
     'gray',
     'darkred',
-    'lightred',
-    'beige',
     'green',
     'darkblue',
+    'lightred',
+    'beige',
     'darkgreen',
     'lightblue',
     'lightgreen',
     'purple',
-    'lightgray',
     'darkpurple',
     'pink',
     'cadetblue',
-    'black'
 ]
 
 ############start##################
