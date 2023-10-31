@@ -138,8 +138,9 @@ marker_colors = [
 ]
 
 ############start##################
+
 with st.sidebar:
-    st.title("有段石锛")
+    st.title("Map with binary variable and time-series")
     file_name = st.file_uploader("import your csv file")
     current_time = st.slider("BP",0,8000,5000,100)
 
@@ -154,9 +155,14 @@ if file_name is not None:
     cultures=list(set(df['Culture']))
     color_set=marker_colors[:len(cultures)]
     colordict=dict(zip(cultures,color_set))
+    #选择需要的特征
+    varibles=tuple(df.columns.tolist())
+    metric_df = pd.DataFrame(
+    with st.sidebar:
+      option = st.selectbox('Which variable',varibles)
     # 添加数据点到地图
     for i, row in df.iterrows():
-        if row['有段石锛'] == 1:
+        if row[option] == 1:
             folium.CircleMarker(
             [row['Lat'], row['Lon']],
             radius=5,
