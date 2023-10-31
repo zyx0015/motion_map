@@ -158,8 +158,7 @@ if file_name is not None:
     #选择需要的特征
     varibles=tuple(df.columns.tolist())
     metric_df = pd.DataFrame(
-    with st.sidebar:
-      option = st.selectbox('Which variable',varibles)
+    option = st.sidebar.selectbox('Which variable',varibles)
     # 添加数据点到地图
     for i, row in df.iterrows():
         if row[option] == 1:
