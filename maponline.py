@@ -9,12 +9,13 @@ from streamlit_folium import st_folium
 ############functions#############
 def filter_sites_by_era(file, current_time):
     input_df=pd.read_csv(file,encoding="gbk")
+    cultures=list(set(input_df['Culture']))
     # 确保输入数据合法性
     if 'Upper' not in input_df.columns or 'Lower' not in input_df.columns:
         raise ValueError("输入数据表格缺少'Upper'或'Lower'列")
     # 使用布尔索引筛选出符合条件的遗址
     filtered_df = input_df[(input_df['Lower'] <= current_time) & (input_df['Upper'] >= current_time)]
-    return filtered_df
+    return filtered_df,cultures
   
 def add_categorical_legend(folium_map, title, colors, labels):
     if len(colors) != len(labels):
@@ -146,14 +147,12 @@ with st.sidebar:
 
 if file_name is not None:
     #写一个函数，读取csv并且根据时间筛选
-    input_df=pd.read_csv(file_name,encoding="gbk")
-    df = filter_sites_by_era(file_name,current_time)  # 读取上传的 CSV 文件
+    df,cultures = filter_sites_by_era(file_name,current_time)  # 读取上传的 CSV 文件
     # 创建地图对象
     m = folium.Map(location=[df['Lat'].mean(), df['Lon'].mean()],
                    zoom_start=5,
                   )
     # 添加数据点到地图
-    cultures=list(set(input_df['Culture']))
     color_set=marker_colors[:len(cultures)]
     colordict=dict(zip(cultures,color_set))
     #选择需要的特征
