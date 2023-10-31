@@ -143,9 +143,6 @@ with st.sidebar:
     st.title("Map with binary variable and time-series")
     file_name = st.file_uploader("import your csv file")
     current_time = st.slider("BP",0,8000,5000,100)
-    df = filter_sites_by_era(file_name,current_time)
-    varibles=tuple(df.columns.tolist())
-    option = st.selectbox('Which variable',varibles)
 
 if file_name is not None:
     #写一个函数，读取csv并且根据时间筛选
@@ -160,31 +157,33 @@ if file_name is not None:
     colordict=dict(zip(cultures,color_set))
     #选择需要的特征
     varibles=tuple(df.columns.tolist())
-    # 添加数据点到地图
-    for i, row in df.iterrows():
-        if row[option] == 1:
-            folium.CircleMarker(
-            [row['Lat'], row['Lon']],
-            radius=5,
-            color='black',
-            fill_color=colordict[row['Culture']],
-            fill=True,
-            fill_opacity=1
-            ).add_to(m)
-        else:
-            folium.CircleMarker(
-            [row['Lat'], row['Lon']],
-            radius=5,
-            color='b',
-            fill_color='grey',
-            fill=True,
-            fill_opacity=0.2
-            ).add_to(m)
-    #添加图例
-    m = add_categorical_legend(m, 'legend',
-                             colors = color_set,
-                           labels = cultures)
-    st_folium(m,width=1000)
-    st.dataframe(df) 
-     
+with st.sidebar:
+    option = st.selectbox('Which variable',varibles)
+# 添加数据点到地图
+for i, row in df.iterrows():
+    if row[option] == 1:
+        folium.CircleMarker(
+        [row['Lat'], row['Lon']],
+        radius=5,
+        color='black',
+        fill_color=colordict[row['Culture']],
+        fill=True,
+        fill_opacity=1
+        ).add_to(m)
+    else:
+        folium.CircleMarker(
+        [row['Lat'], row['Lon']],
+        radius=5,
+        color='b',
+        fill_color='grey',
+        fill=True,
+        fill_opacity=0.2
+        ).add_to(m)
+#添加图例
+m = add_categorical_legend(m, 'legend',
+                         colors = color_set,
+                       labels = cultures)
+st_folium(m,width=1000)
+st.dataframe(df) 
+ 
     
