@@ -51,7 +51,7 @@ if file_name is not None:
                    zoom_start=5,
                   )
     # 添加数据点到地图
-    cultures=list(set(input_data['Culture']))
+    cultures=list(set(df['Culture']))
     color_set=marker_colors[:len(cultures)]
     colordict=dict(zip(cultures,color_set))
     # 添加数据点到地图
