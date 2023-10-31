@@ -143,6 +143,8 @@ with st.sidebar:
     st.title("Map with binary variable and time-series")
     file_name = st.file_uploader("import your csv file")
     current_time = st.slider("BP",0,8000,5000,100)
+    df = filter_sites_by_era(file_name,current_time)
+    varibles=tuple(df.columns.tolist())
     option = st.selectbox('Which variable',varibles)
 
 if file_name is not None:
@@ -158,7 +160,6 @@ if file_name is not None:
     colordict=dict(zip(cultures,color_set))
     #选择需要的特征
     varibles=tuple(df.columns.tolist())
-
     # 添加数据点到地图
     for i, row in df.iterrows():
         if row[option] == 1:
