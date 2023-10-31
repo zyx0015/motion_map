@@ -16,7 +16,26 @@ def filter_sites_by_era(file, current_time):
     filtered_df = input_df[(input_df['Lower'] <= current_time) & (input_df['Upper'] >= current_time)]
     return filtered_df
 
-
+marker_colors = [
+    'red',
+    'blue',
+    'orange',
+    'gray',
+    'darkred',
+    'lightred',
+    'beige',
+    'green',
+    'darkblue',
+    'darkgreen',
+    'lightblue',
+    'lightgreen',
+    'purple',
+    'lightgray',
+    'darkpurple',
+    'pink',
+    'cadetblue',
+    'black'
+]
 
 ############start##################
 with st.sidebar:
@@ -32,7 +51,9 @@ if file_name is not None:
                    zoom_start=5,
                   )
     # 添加数据点到地图
-    colordict = {'两广新石器文化': 'lightblue', '河姆渡': 'lightgreen', '马家浜': 'green', '崧泽': 'darkgreen','骆驼墩':'beige', '良渚': 'red', '钱山漾': 'red', '广富林': 'red','商周':'orange'}      
+    cultures=list(set(input_data['Culture']))
+    color_set=marker_colors[:len(cultures)]
+    colordict=dict(zip(cultures,color_set))
     # 添加数据点到地图
     for i, row in df.iterrows():
         if row['有段石锛'] == 1:
@@ -53,6 +74,10 @@ if file_name is not None:
             fill=True,
             fill_opacity=0.2
             ).add_to(m)
+    #添加图例
+    m = add_categorical_legend(m, 'legend',
+                             colors = color_set,
+                           labels = cultures)
     st_folium(m,width=1000)
     st.dataframe(df) 
      
