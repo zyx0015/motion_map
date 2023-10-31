@@ -157,7 +157,7 @@ if file_name is not None:
     colordict=dict(zip(cultures,color_set))
     #选择需要的特征
     varibles=tuple(df.columns.tolist())
-    with:
+    with st.sidebar:
        option = st.selectbox('Which variable',varibles)
     # 添加数据点到地图
     for i, row in df.iterrows():
