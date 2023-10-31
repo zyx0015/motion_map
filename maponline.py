@@ -150,7 +150,7 @@ if file_name is not None:
     df,cultures = filter_sites_by_era(file_name,current_time)  # 读取上传的 CSV 文件
     # 创建地图对象
     m = folium.Map(location=[df['Lat'].mean(), df['Lon'].mean()],
-                   zoom_start=5,
+                   zoom_start=4,
                   )
     # 添加数据点到地图
     color_set=marker_colors[:len(cultures)]
