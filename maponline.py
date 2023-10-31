@@ -146,13 +146,14 @@ with st.sidebar:
 
 if file_name is not None:
     #写一个函数，读取csv并且根据时间筛选
+    input_df=pd.read_csv(file_name,encoding="gbk")
     df = filter_sites_by_era(file_name,current_time)  # 读取上传的 CSV 文件
     # 创建地图对象
     m = folium.Map(location=[df['Lat'].mean(), df['Lon'].mean()],
                    zoom_start=5,
                   )
     # 添加数据点到地图
-    cultures=list(set(df['Culture']))
+    cultures=list(set(input_df['Culture']))
     color_set=marker_colors[:len(cultures)]
     colordict=dict(zip(cultures,color_set))
     #选择需要的特征
